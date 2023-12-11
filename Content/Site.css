@@ -2,13 +2,27 @@
 body {
     padding-top: 50px;
     padding-bottom: 20px;
+    background-image: url("../slike/barselona.jpg");
 }
+.jumbotron{
+    background-color: rgba(255,255,255,0.2);
+    color:black;
+}
+input, select, textarea {
+    max-width: 280px;
+    margin-bottom:15px;
+}
+.tekstbeli{
+    color:white;
+}
+
 
 /* Wrapping element */
 /* Set some basic padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
+    color:white;
 }
 
 /* Set widths on the form inputs since otherwise they're 100% wide */

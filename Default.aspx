@@ -7,16 +7,16 @@
         ID Korisnika:
         <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
         <br />
-        Ime:
+        Ime:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <asp:TextBox ID="TextBox2" runat="server"></asp:TextBox>
         <br />
-        Prezime:
+        Prezime:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <asp:TextBox ID="TextBox3" runat="server"></asp:TextBox>
         <br />
-        Email:
+        Email:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <asp:TextBox ID="TextBox4" runat="server"></asp:TextBox>
         <br />
-        Telefon:
+        Telefon:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <asp:TextBox ID="TextBox5" runat="server"></asp:TextBox>
         <br />
         <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Registruj se" />
