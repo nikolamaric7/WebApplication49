@@ -3,7 +3,7 @@
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
     <div class="jumbotron">
 
-        <asp:Button ID="Button1" runat="server" Text="Prikazi" />
+        <asp:Button ID="Button1" runat="server" Text="Prikazi" OnClick="Button1_Click" />
         <br />
         <asp:GridView ID="GridView1" runat="server">
         </asp:GridView>

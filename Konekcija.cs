@@ -8,7 +8,15 @@ namespace WebApplication49
 {
     public class Konekcija
     {
-        public static string Conn = @"Data Source=DESKTOP-CK9VBS0\SQLEXPRESS;Initial Catalog=TuristickaAgencija;Integrated Security=true";
+        public static string Conn = @"Data Source=.\SQLEXPRESS;Initial Catalog=TuristickaAgencija;Integrated Security=true";
 
+        public static SqlCommand GetCommand() 
+        {
+            SqlConnection con = new SqlConnection(Conn);
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            return cmd;
+        }
     }
 }
