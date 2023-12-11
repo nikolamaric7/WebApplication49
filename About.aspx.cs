@@ -24,7 +24,7 @@ namespace WebApplication49
                         using (SqlCommand cmd = new SqlCommand(komanda, Conn))
                         {
                             SqlDataReader reader = cmd.ExecuteReader();
-                            while(reader.Read())
+                            while (reader.Read())
                             {
                                 DropDownList1.Items.Add(reader["Mesto"].ToString());
                             }
@@ -62,40 +62,70 @@ namespace WebApplication49
         {
             using (SqlConnection Conn = new SqlConnection(Konekcija.Conn))
             {
+                if (TextBox1.Text == string.Empty || TextBox2.Text == string.Empty || TextBox3.Text == string.Empty)
+                {
+                    Label2.Text = "Unesite sva polja.";
+                }
+                else
+                {
+                    try
+                    {
+                        Conn.Open();
+                        string komanda = "SELECT * FROM Ponuda  WHERE Cena<=" + Convert.ToInt32(TextBox1.Text) + " AND Mesto='" + DropDownList1.SelectedItem.ToString() + "' AND ID_AGENCIJE=(SELECT ID_AGENCIJA FROM Agencija WHERE Naziv='" + DropDownList2.SelectedItem.ToString() + "')";
+                        using (SqlCommand cmd = new SqlCommand(komanda, Conn))
+                        {
+                            SqlDataReader reader = cmd.ExecuteReader();
+                            DataTable dt = new DataTable();
+                            dt.Columns.Add("Id");
+                            dt.Columns.Add("Cena");
+                            dt.Columns.Add("DatumPolaska");
+                            dt.Columns.Add("DatumDolaska");
+                            dt.Columns.Add("IdAgencije");
+                            dt.Columns.Add("Mesto");
+                            while (reader.Read())
+                            {
+                                DataRow row = dt.NewRow();
+                                row["Id"] = reader["ID_PONUDA"].ToString();
+                                row["Cena"] = reader["Cena"].ToString();
+                                row["DatumPolaska"] = reader["Datum_Polaska"].ToString();
+                                row["DatumDolaska"] = reader["Datum_Dolaska"].ToString();
+                                row["IdAgencije"] = reader["ID_AGENCIJE"].ToString();
+                                row["Mesto"] = reader["Mesto"].ToString();
+                                dt.Rows.Add(row);
+                            }
+                            GridView1.DataSource = dt;
+                            GridView1.DataBind();
+                            reader.Close();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
+                }
+            }
+        }
+
+        protected void Button2_Click(object sender, EventArgs e)
+        {
+            using (SqlConnection Conn = new SqlConnection(Konekcija.Conn))
+            {
                 try
                 {
                     Conn.Open();
-                    string komanda = "SELECT * FROM Ponuda WHERE Cena<=" + Convert.ToInt32(TextBox1.Text);
+                    string komanda = "INSERT INTO Zakazivanje Values(" + TextBox4.Text + "," + TextBox5.Text + ")";
                     using (SqlCommand cmd = new SqlCommand(komanda, Conn))
                     {
-                        SqlDataReader reader = cmd.ExecuteReader();
-                        DataTable dt = new DataTable();
-                        dt.Columns.Add("Id");
-                        dt.Columns.Add("Cena");
-                        dt.Columns.Add("DatumPolaska");
-                        dt.Columns.Add("DatumDolaska");
-                        dt.Columns.Add("IdAgencije");
-                        dt.Columns.Add("Mesto");
-                        while (reader.Read())
-                        {
-                            DataRow row = dt.NewRow();
-                            row["Id"] = reader["ID_PONUDA"].ToString();
-                            row["Cena"] = reader["Cena"].ToString();
-                            row["DatumPolaska"] = reader["Datum_Polaska"].ToString();
-                            row["DatumDolaska"] = reader["Datum_Dolaska"].ToString();
-                            row["IdAgencije"] = reader["ID_AGENCIJE"].ToString();
-                            row["Mesto"] = reader["Mesto"].ToString();
-                            dt.Rows.Add(row);
-                        }
-                        GridView1.DataSource = dt;
-                        GridView1.DataBind();
-                        reader.Close();
+                        if (cmd.ExecuteNonQuery() > 0)
+                            Label1.Text = "Uspesan unos!";
+                        else
+                            Label1.Text = "Neuspesan unos!";
                     }
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex.Message);
-                    Label1.Text = "123";
+                    Label1.Text = ex.Message;
                 }
             }
         }
